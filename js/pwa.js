@@ -20,6 +20,16 @@
   }
 
   function addControls() {
+    const login = $('.lform');
+    if (login && !$('.pwa-login-install', login)) {
+      const loginButton = document.createElement('button');
+      loginButton.className = 'pwa-login-install';
+      loginButton.type = 'button';
+      loginButton.innerHTML = '<i class="fas fa-download" aria-hidden="true"></i> Instalar aplicación';
+      loginButton.addEventListener('click', installApp);
+      login.append(loginButton);
+      if (installed()) loginButton.hidden = true;
+    }
     const bar = $('.bar');
     if (!bar || $('.pwa-actions', bar)) return;
     const group = document.createElement('div');
