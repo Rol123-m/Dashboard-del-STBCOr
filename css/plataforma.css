@@ -167,3 +167,7 @@ button,.btn,a{ -webkit-tap-highlight-color:transparent }
   .pwa-btn{width:36px;height:36px;min-height:36px;padding:0;border-radius:9px}
   .pwa-label{display:none}
 }
+
+.pwa-login-install{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;margin-top:1.2rem;padding:.7rem 1.1rem;min-height:44px;border:1px solid var(--line);border-radius:10px;background:var(--navy);color:#fff;font:600 .9rem 'Open Sans',system-ui,sans-serif;cursor:pointer}
+.pwa-login-install:hover{background:var(--navy-d)}
+.pwa-login-install[hidden]{display:none}
