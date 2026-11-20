@@ -1,29 +1,34 @@
-# Dashboard de asignaturas · STBCOr · Curso 2026–2027
+# Plataforma académica · STBCOr · Curso 2026–2027
 
-Página moderna con la identidad del seminario que lista las asignaturas (tarjetas clicables) y se conecta a una Hoja de Google mediante **un solo archivo**: `apps-script/Code.gs`.
+Página web (GitHub Pages) + **un solo archivo** `apps-script/Code.gs` conectado a una hoja de Google.
 
-## Contenido
-- `index.html`, `css/`, `js/`, `assets/`, `vendor/` → la página (funciona en GitHub Pages, sin servidor).
-- `apps-script/Code.gs` → todo el backend. La hoja registra: **ID · Asignatura · Profesor · Enlace · Creada · Actualizada**.
+## Qué incluye
+| Sección | Quién la ve | Quién la edita |
+|---|---|---|
+| Asignaturas (tarjetas con enlace) | Todos | Rectoría, Decanato, Secretaría (borrar: Rectoría y Decanato) |
+| Anuncios | Todos | Rectoría, Decanato y Secretaría publican. Rectoría edita/borra todos; los demás solo los suyos |
+| Malla curricular (77 materias, 4 años) | Todos | **Solo Decanato** |
+| Calendario académico | Todos | Rectoría y Decanato |
+| Directorio (11 cargos + 50 docentes) | Todos | Rectoría y Secretaría |
+
+Todos deben iniciar sesión: los estudiantes con usuario y contraseña (72 cuentas, en `Credenciales_Estudiantes_STBCOr_2026-2027.csv`), y el personal con un código de acceso (rector / decano / secretaría) en la pestaña «Personal».
+Las contraseñas se guardan cifradas (SHA-256 con sal), nunca en texto plano. Tras 8 intentos fallidos la cuenta se bloquea 10 minutos.
 
 ## Instalación (10 minutos)
-1. **Hoja:** crea una hoja de Google (sheets.new).
-2. **Script:** Extensiones → Apps Script. Borra el contenido y pega todo `Code.gs`.
-3. **Clave:** en `CONFIG.CLAVE_ADMIN` cambia `CAMBIA-ESTA-CLAVE` por tu clave. Guarda.
-4. **Preparar la hoja:** elige la función `configurarHoja` y pulsa Ejecutar (acepta los permisos; crea la pestaña «Asignaturas»).
-5. **Publicar el backend:** Implementar → Nueva implementación → ⚙ Aplicación web →
-   *Ejecutar como:* **Yo** · *Quién tiene acceso:* **Cualquier usuario** → Implementar. Copia la URL que termina en `/exec`.
-6. **Conectar la página:** abre `js/config.js` y pega esa URL en `APPS_SCRIPT_URL`.
-7. **Publicar la página:** sube esta carpeta a un repositorio de GitHub y activa Pages (o ábrela con cualquier servidor web).
+1. Crea una hoja de Google nueva (sheets.new). **Déjala privada**: contiene las cuentas.
+2. Extensiones → Apps Script. Pega todo `apps-script/Code.gs`. (Opcional pero recomendado: cambia las 3 claves de `CONFIG.CLAVES`.)
+3. Ejecuta la función `configurarHoja` (acepta permisos). Crea las 6 hojas y carga la malla, el directorio y las cuentas.
+4. Implementar → Nueva implementación → Aplicación web → *Ejecutar como:* Yo · *Acceso:* Cualquier usuario. Copia la URL `/exec`.
+5. Pega esa URL en `js/config.js` (`APPS_SCRIPT_URL`) y sube la carpeta a GitHub Pages.
 
-## Uso
-- Los estudiantes ven las tarjetas y pulsan una para **entrar a la asignatura** (se abre su enlace).
-- Para gestionar: botón **Administrar** (arriba a la derecha) → escribe tu clave → aparecen **Nueva asignatura** y los botones de editar/eliminar en cada tarjeta. Cada cambio se guarda en la hoja.
-- También puedes editar la hoja directamente: la página muestra lo que haya en ella.
-- Ejemplo: crea «Griego Koiné» con el profesor y el enlace de su plataforma.
+## Mantenimiento
+- Menú de la hoja **Plataforma STBCOr**: restablecer la contraseña de un estudiante (genera una nueva) y agregar estudiantes.
+- Una cuenta puede desactivarse poniendo `Inactivo` en la columna Estado de la hoja «Usuarios» (Gelkis Guerra ya está inactivo).
+- Cambiar permisos: edita `perm` de cada sección en `ENTIDADES` (Code.gs).
+- Tras modificar Code.gs: Implementar → Administrar implementaciones → Editar → Nueva versión.
+- Las hojas quedan protegidas: el contenido se edita desde la plataforma (también puede hacerlo el propietario de la hoja directamente).
+- Los estudiantes cambian su propia contraseña desde «Mi cuenta».
 
-## Notas
-- Si modificas `Code.gs` después: Implementar → Administrar implementaciones → ✏ → **Nueva versión** (la URL no cambia).
-- La clave se comprueba en el servidor (Apps Script); no está en la página. Cualquiera puede *ver* la lista (es pública, como el dashboard); solo quien tenga la clave puede cambiarla.
-- Sin `APPS_SCRIPT_URL` la página muestra las instrucciones y un botón «Ver demostración» (datos de ejemplo que no se guardan).
-- Si la hoja no responde, se muestran las últimas asignaturas guardadas en el navegador.
+## Datos que conviene revisar
+Algunos datos del directorio venían con discrepancias entre tus dos fuentes; revísalos en la hoja «Directorio»:
+teléfono del Rector (53422375 en el sílabo, 53422376 en la base de datos), correo de Michel Morales (…1980 vs …1981), de Alsuby Alba (`mifamiia`/`mifamilia`) y de Félix Domínguez (`rvfelixr`/`rvfelix`).
