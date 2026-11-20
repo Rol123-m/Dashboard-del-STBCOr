@@ -148,3 +148,26 @@ button,.btn,a{ -webkit-tap-highlight-color:transparent }
   .sub:hover,.card:hover{transform:none}
   .btn:hover{background:var(--navy)}
 }
+
+
+/* Controles PWA: integrados en la barra existente sin alterar su estructura visual. */
+.pwa-actions{display:flex;align-items:center;gap:.35rem;flex:none}
+.pwa-btn{display:inline-flex;align-items:center;justify-content:center;gap:.4rem;min-height:38px;padding:.45rem .65rem;border:1px solid rgba(255,255,255,.22);border-radius:10px;background:rgba(255,255,255,.1);color:#fff;font:600 .78rem 'Open Sans',system-ui,sans-serif;cursor:pointer;white-space:nowrap}
+.pwa-btn:hover{background:rgba(255,255,255,.2)}
+.pwa-btn[hidden]{display:none}
+.pwa-update{background:var(--sun);border-color:var(--sun);color:var(--navy-d)}
+.pwa-update:hover{background:#f7d788}
+.pwa-btn:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+@media(max-width:860px){
+  .pwa-actions{gap:.25rem}
+  .pwa-btn{min-height:36px;padding:.4rem .55rem}
+}
+@media(max-width:600px){
+  .pwa-actions{gap:.2rem}
+  .pwa-btn{width:36px;height:36px;min-height:36px;padding:0;border-radius:9px}
+  .pwa-label{display:none}
+}
+
+.pwa-login-install{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;margin-top:1.2rem;padding:.7rem 1.1rem;min-height:44px;border:1px solid var(--line);border-radius:10px;background:var(--navy);color:#fff;font:600 .9rem 'Open Sans',system-ui,sans-serif;cursor:pointer}
+.pwa-login-install:hover{background:var(--navy-d)}
+.pwa-login-install[hidden]{display:none}
